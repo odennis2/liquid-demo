@@ -44,7 +44,7 @@ const MatterScene = () => {
       },
     });
 
-    // SVG Filter for Goo Effect
+    // SVG Filter for Blur Effect
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("width", "0");
     svg.setAttribute("height", "0");
@@ -119,8 +119,8 @@ const MatterScene = () => {
       circles.push(
         Bodies.circle(x, y, 8, {
           restitution: 0, // Bounce value
-          friction: 0, // Low friction for sliding
-          frictionAir: 0.02, // Low air friction
+          friction: 0, // Friction for sliding
+          frictionAir: 0.02, // Air friction
           label: "balls",
           render: {
             strokeStyle: "blue",
@@ -140,6 +140,17 @@ const MatterScene = () => {
         lineWidth: 0,
       },
     });
+
+    // Boat like object
+    const boatHull = Matter.Bodies.trapezoid(screenWidth / 2, -screenHeight+100, 200, 50, 0.4, {
+      angle: Math.PI,
+      render: {
+        fillStyle: '#805105',  // Boat hull color
+        strokeStyle: '#805105',
+        lineWidth: 2
+      }
+    });
+    
 
     // Add mouse control
     var mouse = Mouse.create(particlesRender.canvas),
@@ -161,6 +172,7 @@ const MatterScene = () => {
       rightWall,
       bigBall,
       mouseConstraint,
+      boatHull,
     ]);
 
     // Run the renders
@@ -183,19 +195,23 @@ const MatterScene = () => {
   }, []);
 
   return (
-    <div
-      ref={sceneRef}
-      style={{ position: "relative", width: "1500px", height: "800px" }}
-    >
-      <canvas
-        ref={staticCanvasRef}
-        style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
-      />
-      <canvas
-        ref={particlesCanvasRef}
-        style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }}
-      />
-    </div>
+<div
+  ref={sceneRef}
+  style={{ position: "relative", width: "1500px", height: "800px" }}
+>
+  <p style={{ position: "absolute", top: "5%", left: "60%", transform: "translate(-50%, -50%)", color: "white", zIndex: 3, opacity: "60%" }}>
+    Particles can be interacted with. Click and hold a particle to drag it around.
+  </p>
+  <canvas
+    ref={staticCanvasRef}
+    style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
+  />
+  <canvas
+    ref={particlesCanvasRef}
+    style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }}
+  />
+</div>
+
   );
 };
 
