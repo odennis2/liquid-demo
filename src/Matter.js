@@ -81,16 +81,32 @@ const MatterScene = () => {
 
     particlesCanvasRef.current.style.filter = "url(#gooey-filter)";
 
-    
-    // Bodies declarations
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    const reducedWidth = window.innerWidth * 0.9;
-    const reducedHeight = window.innerHeight * 0.9;
-    
-    var ground = Bodies.rectangle(screenWidth / 2, screenHeight - (0.1 * screenHeight), reducedWidth, 20, { isStatic: true });
-    var leftWall = Bodies.rectangle(0.1 * screenWidth, screenHeight / 2, 20, reducedHeight, { isStatic: true });
-    var rightWall = Bodies.rectangle(screenWidth - (0.1 * screenWidth), screenHeight / 2, 20, reducedHeight, { isStatic: true });
+    const reducedWidth = screenWidth * 0.9;
+    const reducedHeight = screenHeight * 0.9;
+
+    var ground = Bodies.rectangle(
+      screenWidth / 2,
+      screenHeight - 0.1 * screenHeight,
+      reducedWidth,
+      20,
+      { isStatic: true }
+    );
+    var leftWall = Bodies.rectangle(
+      screenWidth / 2 - reducedWidth / 2 - 10,
+      screenHeight / 2,
+      20,
+      reducedHeight,
+      { isStatic: true }
+    );
+    var rightWall = Bodies.rectangle(
+      screenWidth / 2 + reducedWidth / 2 + 10,
+      screenHeight / 2,
+      20,
+      reducedHeight,
+      { isStatic: true }
+    );
 
     var circles = [];
 
@@ -144,7 +160,7 @@ const MatterScene = () => {
       leftWall,
       rightWall,
       bigBall,
-      mouseConstraint
+      mouseConstraint,
     ]);
 
     // Run the renders
@@ -167,9 +183,18 @@ const MatterScene = () => {
   }, []);
 
   return (
-    <div ref={sceneRef} style={{ position: "relative", width: "1500px", height: "800px" }}>
-      <canvas ref={staticCanvasRef} style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }} />
-      <canvas ref={particlesCanvasRef} style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }} />
+    <div
+      ref={sceneRef}
+      style={{ position: "relative", width: "1500px", height: "800px" }}
+    >
+      <canvas
+        ref={staticCanvasRef}
+        style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
+      />
+      <canvas
+        ref={particlesCanvasRef}
+        style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }}
+      />
     </div>
   );
 };
