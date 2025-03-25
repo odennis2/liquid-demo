@@ -85,8 +85,8 @@ const MatterScene = () => {
     // Bodies declarations
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    const reducedWidth = window.innerWidth * 0.8;
-    const reducedHeight = window.innerHeight * 0.8;
+    const reducedWidth = window.innerWidth * 0.9;
+    const reducedHeight = window.innerHeight * 0.9;
     
     var ground = Bodies.rectangle(screenWidth / 2, screenHeight - (0.1 * screenHeight), reducedWidth, 20, { isStatic: true });
     var leftWall = Bodies.rectangle(0.1 * screenWidth, screenHeight / 2, 20, reducedHeight, { isStatic: true });
@@ -95,13 +95,13 @@ const MatterScene = () => {
     var circles = [];
 
     for (let i = 0; i < 2500; i++) {
-      let x = (Math.random() + 0.3) * 1500;
+      let x = (Math.random() + 0.15) * 1500;
       let y = Math.random() * 400;
       let yPercentage = y / 10;
       let color = `hsl(${210 + yPercentage}, 100%, 60%)`;
 
       circles.push(
-        Bodies.circle(x, y, 10, {
+        Bodies.circle(x, y, 8, {
           restitution: 0, // Bounce value
           friction: 0, // Low friction for sliding
           frictionAir: 0.02, // Low air friction
